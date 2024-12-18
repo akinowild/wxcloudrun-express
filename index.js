@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const { init: initDB, Counter } = require("./db");
+const { init: initDB, Counter,Note } = require("./db");
 
 const logger = morgan("tiny");
 
