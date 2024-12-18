@@ -49,6 +49,34 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 
+// 创建新的记录
+app.post('/notes', async (req, res) => {
+  const userOpenId = req.headers['x-user-openid']; // 从请求头中获取用户的 OpenID
+  const { content } = req.body;
+
+  try {
+    const note = await Note.create({ content, userOpenId });
+    res.status(201).json(note);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// 获取用户的所有记录
+app.get('/notes', async (req, res) => {
+  const userOpenId = req.headers['x-user-openid']; // 从请求头中获取用户的 OpenID
+
+  try {
+    const notes = await Note.findAll({
+      where: { userOpenId },
+      order: [['createdAt', 'DESC']], // 按时间倒序排列
+    });
+    res.json(notes);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 const port = process.env.PORT || 80;
 
 async function bootstrap() {

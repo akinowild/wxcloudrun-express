@@ -20,6 +20,27 @@ const Counter = sequelize.define("Counter", {
   },
 });
 
+// 定义数据模型
+const Note = sequelize.define("Note", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  content: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  userOpenId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
+}, {
+  sequelize,
+  modelName: 'Note',
+  timestamps: true, // 自动添加 createdAt 和 updatedAt 字段
+});
+
 // 数据库初始化方法
 async function init() {
   await Counter.sync({ alter: true });
@@ -29,4 +50,5 @@ async function init() {
 module.exports = {
   init,
   Counter,
+  Note
 };
