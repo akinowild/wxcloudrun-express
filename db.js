@@ -43,7 +43,7 @@ const Note = sequelize.define("Note", {
 
 // 数据库初始化方法
 async function init() {
-  await Counter.sync({ alter: true });
+  await sequelize.sync();
 }
 
 // 导出初始化方法和模型
