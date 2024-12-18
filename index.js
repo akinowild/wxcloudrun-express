@@ -51,7 +51,8 @@ app.get("/api/wx_openid", async (req, res) => {
 
 // 创建新的记录
 app.post('/notes', async (req, res) => {
-  const userOpenId = req.headers['x-user-openid']; // 从请求头中获取用户的 OpenID
+  const userOpenId = req.headers["x-wx-openid"]; // 从请求头中获取用户的 OpenID
+
   const { content } = req.body;
 
   try {
@@ -64,7 +65,7 @@ app.post('/notes', async (req, res) => {
 
 // 获取用户的所有记录
 app.get('/notes', async (req, res) => {
-  const userOpenId = req.headers['x-user-openid']; // 从请求头中获取用户的 OpenID
+  const userOpenId = req.headers["x-wx-openid"]; // 从请求头中获取用户的 OpenID
 
   try {
     const notes = await Note.findAll({
